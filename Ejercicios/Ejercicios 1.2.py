@@ -146,11 +146,64 @@ if prod == (num1 ** 3):
 # declaración. Demuestre que su script funciona ejecutándolo en los seis ordenamientos posibles
 # de los números. ¿Su script funciona con números duplicados?
 
+num1 = float(input('Ingrese el primer número: '))
+num2 = float(input('Ingrese el segundo número: '))
+num3 = float(input('Ingrese el tercer número: '))
+
+smallest = num1
+if num2 < smallest:
+    smallest = num2
+if num3 < smallest:
+    smallest = num3
 
 
+largest = num1
+if num2 > largest:
+    largest = num2
+if num3 > largest:
+    largest = num3
 
+mid = num2;
+if num1 != smallest:
+    if num1 != largest:
+        mid = num1
+if num2 != smallest:
+    if num2 != largest:
+        mid = num2
 
+if num3 != smallest:
+    if num3 != largest:
+        mid = num3
+    
+print('Los números en orden creciente son: ', smallest, mid, largest)
 
+# -----------------------------------------------------------------
+# Ejercicio: Huevos por cartera
+# Normalmente caben 6 huevos en una cartera. Escribe un script para
+# calcular la cantidad de cajas que necesita un granjero para almacenar 28
+# huevos. El script también determinará cuántos huevos se colocan en la
+# última cartera sin completar y cuántos huevos adicionales se necesitan
+# para llenar esta última cartera.
+
+eggs = (int(input('Ingrese la cantidad de huevos: ')))
+cartons = eggs // 6
+leftover = eggs % 6
+
+if eggs != 0:
+    if eggs > 6:
+        if eggs % 6 == 0:
+            print('Se llenaron', cartons, 'carteras de 6 huevos')
+
+        if eggs % 6 != 0:
+            print('Se llenaron', cartons, 'carteras de 6 huevos')
+            print('La ultima cartera se colocó ', leftover, 'huevos')
+            print('La cantidad de huevos adicionales necesarios para llenar la ultima cartera es: ', 6 - leftover)
+    if eggs < 6:
+        print('La cantidad de huevos que se necesitan para llenar una cartera es de: ', 6 - eggs)
+        print('En la ultima cartera se colocaron ', eggs, 'huevos')
+        print('La cantidad de huevos adicionales necesarios para llenar la ultima cartera es: ', 6 - eggs)
+if eggs == 0:
+    print('La cantidad de huevos que se necesitan para llenar una cartera es de: 6')
 
 
 
