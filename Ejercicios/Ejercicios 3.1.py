@@ -89,4 +89,121 @@ if userInput > 0:
 else:
     print("Por favor, ingrese un número entero no negativo.")
 
+# -----------------------------------------------------------------------------
+# Ejercicio 34
+# Ingrese un número entero que contenga 0 y 1 (es decir, un número entero
+# “binario”) y muestre su equivalente decimal. [Sugerencia: utilice los
+# operadores de residuo y división(o división de piso) para seleccionar los dígitos
+# del número "binario" uno a la vez, de derecha a izquierda. Así como en el
+# sistema numérico decimal, donde el dígito más a la derecha tiene el valor
+# posicional 1 y el siguiente dígito a la izquierda tiene el valor posicional 10,
+# luego 100, luego 1000, etc., en el sistema numérico binario, el dígito más a la
+# derecha tiene el valor posicional 1, el siguiente dígito a la izquierda tiene el
+# valor posicional 2, luego 4, luego 8, etc. Por lo tanto, el número decimal 234 se
+# puede interpretar como 2 * 100 + 3 * 10 + 4 * 1. El decimal equivalente del
+# binario 1101 es 1 * 8 + 1 * 4 + 0 * 2 + 1 * 1.] NOTA: No utilizar la función
+# reversed().
+
+binary_number = input("Ingrese un número binario (conteniendo solo 0 y 1): ")
+
+
+number_decimal = 0
+
+for index in range(len(binary_number)):
+    digit_binary = int(binary_number[index])
+    value = 2 ** (len(binary_number) - index - 1)
+    number_decimal += digit_binary * value
+
+print(f"El número decimal equivalente de {binary_number} es: {number_decimal}")
+
+# -----------------------------------------------------------------------------
+# Ejercicio 35
+# Ingrese un número(es decir, un entero positivo) y muestre su equivalente en
+# binario. [Sugerencia: utilice los operadores de residuo y división(o división de
+# piso) para seleccionar los dígitos del número entero uno a la vez, de derecha a
+# izquierda. Por lo tanto, el número decimal 234 se puede interpretar como 2 *
+# 100 + 3 * 10 + 4 * 1. El decimal equivalente del binario 1101 es 1 * 8 + 1 * 4 + 0
+# * 2 + 1 * 1.] NOTA: No utilizar la función reversed().
+
+number = int(input("Ingresa un número en decimal: "))
+
+bit1 = "1"
+bit0 = "0"
+result = ''
+
+while number != 0:
+    if number % 2 == 1:
+        result = result + bit1
+        number = int(number // 2)
+    else:
+        result = result + bit0
+        number = int(number // 2)
+
+sizeString = len(result) - 1
+result2 = ""
+while sizeString >= 0:
+    result2 = result2 + result[sizeString]
+    sizeString = sizeString - 1
+
+print("Representación binaria invertida:", result2)
+
+# -----------------------------------------------------------------------------
+# Ejercicio 36
+# Capicúa es un término que hace referencia a aquel número que resulta
+# idéntico cuando se lee de derecha a izquierda y de izquierda a derecha.
+# Implemente un script donde el usuario ingrese un número entero positivo y
+# determine si es capicúa o no. Por ejemplo la matrícula del maestro es 311113
+# por lo tanto es capicúa!
+# Sugerencia: Los operadores // y % le podrían ayudar.
+# NOTA: No utilizar la función reversed().
+
+number = str(input("Ingresa un numero para saber si es capicúa: "))
+
+length = len(number)
+isCapicua = True
+
+
+for index in range(length // 2):
+    if number[index] != number[length - 1 - index]:
+        isCapicua = False
+
+if isCapicua:
+    print(f"El numero {number} es Capicúa")
+else:
+    print(f"El numero {number} no es Capicúa")
+
+# -----------------------------------------------------------------------------
+# Ejercicio 37
+# Se le llama palíndromo a la palabra o frase cuyas letras están dispuestas de tal
+# manera que resulta la misma leída de izquierda a derecha que de derecha a
+# izquierda. Por ejemplo:
+# ● Anita lava la tina
+# ● La ruta nos aportó otro paso natural
+# Implemente un script donde el usuario ingresa una palabra o frase y determine
+# si es palindromo o no.
+# NOTA: Al ingresar la palabra o frase, no deberá tener acentos, tildes, diéresis y
+# mayúsculas. Los espacios si están permitidos. No utilizar la función reversed(),
+# y tampoco listas.
+
+text = str(input("Ingresa un texto para saber si es palíndromo: "))
+
+length = len(text)
+text = text.lower()
+isPalindrome = True
+finaltext = ''
+
+for index in range(length):
+    if text[index] != ' ':
+        finaltext = finaltext + text[index]
+
+length = len(finaltext)
+
+for index in range(length):
+    if finaltext[index] != finaltext[length - index - 1]:
+        isPalindrome = False
+    
+if isPalindrome:
+    print(f"El texto '{text}' es un palíndromo.")
+else:
+    print(f"El texto '{text}' no es un palíndromo.")
 
