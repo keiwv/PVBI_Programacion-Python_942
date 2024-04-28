@@ -1,32 +1,42 @@
 import platform
 import os
+
 system = platform.system()
 
-# I switch from linux and windows, so I check what im using and in base of that
-# i modify the text inside of the system so i dont have to be changing it everytime
-# i switch from windows to linux or linux to windows.
-if system == "Windows":
-    clear = "CLS"
-else:
-    clear = "clear"
-
-os.system(clear)
+# Determine the clear command based on the operating system
+clear_command = "cls" if system == "Windows" else "clear"
+os.system(clear_command)
 
 main_inventory = []
 listBought = []
 itemBought = []
 
-with open("Ejercicios/Ejercicio 4.2/inventario.txt", "r") as inventory:
-    main_inventory = inventory.readlines()
-with open("Ejercicios/Ejercicio 4.2/Lista de compras.txt", "r") as list:
-    listBought = list.readlines()
+with open("Ejercicios/Ejercicio 4.2/inventario.txt", "r") as inventory_file:
+    main_inventory = inventory_file.readlines()
+
+with open("Ejercicios/Ejercicio 4.2/Lista de compras.txt", "r") as list_file:
+    listBought = list_file.readlines()
+
+lowerListBought = [item.strip().lower() for item in listBought]
+lowerMainInventory = [item.strip().lower() for item in main_inventory]
 
 for item in listBought:
     print(item, end='')
-item = ''
-
-while item not in listBought:
+print()
+while True:
+    item = input("Ingrese el artículo que desea eliminar del inventario o 'fin' para salir: ").strip().lower()
     
+    if item == 'fin':
+        break
+    else:
+        if item in lowerListBought and item in lowerMainInventory:
+            lowerListBought.remove(item)
+            lowerMainInventory.remove(item)
+            itemBought.append(item)
+            print(f"'{item}' eliminado del inventario y añadido a la lista de comprados.")
+        else:
+            print("El artículo no está en el inventario o ya se ha eliminado.")
 
-
-
+print("Artículos comprados:")
+for item in itemBought:
+    print(item)
