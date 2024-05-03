@@ -1,49 +1,106 @@
-import numpy 
-import matplotlib
+import numpy as np
+import matplotlib.pyplot as plt
 import random
-
-wins = 0
-losses = 0
+import sys
 
 def lanzar_dado():
     """Lanza dos dados y regresa los valores de sus caras como una tupla."""
     dado1 = random.randrange(1, 7)
     dado2 = random.randrange(1, 7)
-    return (dado1, dado2) #empaqueta los valores de las caras de los dados en una tupla.
+    return (dado1, dado2)  # Empaqueta los valores de las caras de los dados en una tupla.
 
 def mostrar_dado(dado):
     """Muestra un lanzamiento de los dos dados."""
-    dado1, dado2 = dado #desempaqueta la tupla en las variables dado1 y dado2.
-    print(f'Jugador lanzo {dado1} + {dado2} = {sum(dado)}')
-   
-valor_dado = lanzar_dado() #primer tiro
-mostrar_dado(valor_dado)
+    dado1, dado2 = dado  # Desempaqueta la tupla en las variables dado1 y dado2.
+    print(f'Jugador lanzó {dado1} + {dado2} = {sum(dado)}')
 
-#determina el estado y puntaje del juego, basandose en el primer tiro
-suma_de_dados = sum(valor_dado)
+# Listas para contar victorias y derrotas en cada juego
+ganados = [0] * 14
+perdidos = [0] * 14
 
-if suma_de_dados in (7, 11): #ganó
-    estatus_juego = 'Ganó'
-elif suma_de_dados in (2, 3, 12): #perdio
-    estatus_juego = 'Perdio'
-else: #recuerda el punto
-    estatus_juego = 'Continua'
-    mi_punto = suma_de_dados
-    print('El punto es:', mi_punto)
+# Diccionario para registrar la duración de los juegos ganados
+duracion_juegos = {}
 
-#Continua lanzando hasta que el jugar gana o pierde
-while estatus_juego == 'Continua':
-    valor_dado = lanzar_dado()
-    mostrar_dado(valor_dado)
+lanzar = int(sys.argv[1])
+
+for _ in range(lanzar):
+    juegoNumero = 1
+    
+    valor_dado = lanzar_dado()  # Primer tiro
+    # Determina el estado y puntaje del juego, basándose en el primer tiro
     suma_de_dados = sum(valor_dado)
-   
-    if  suma_de_dados == mi_punto: #Ganó por los puntos
+
+    if suma_de_dados in (7, 11):  # Ganó
         estatus_juego = 'Ganó'
-    elif suma_de_dados == 7: #Perdio lanzando 7
-        estatus_juego = 'Perdio'
+    elif suma_de_dados in (2, 3, 12):  # Perdió
+        estatus_juego = 'Perdió'
+    else:  # Recuerda el punto
+        estatus_juego = 'Continua'
+        mi_punto = suma_de_dados
+
+    # Continúa lanzando hasta que el jugador gana o pierde
+    while estatus_juego == 'Continua':
+        valor_dado = lanzar_dado()
+        suma_de_dados = sum(valor_dado)
+    
+        if suma_de_dados == mi_punto:  # Ganó por los puntos
+            estatus_juego = 'Ganó'
+            duracion = juegoNumero
+            if duracion in duracion_juegos:
+                duracion_juegos[duracion] += 1
+            else:
+                duracion_juegos[duracion] = 1
+            break
+        elif suma_de_dados == 7:  # Perdió lanzando 7
+            estatus_juego = 'Perdió'
+            break
+
+        juegoNumero += 1
+
+    if estatus_juego == 'Ganó':
+        if juegoNumero >= 13:
+            ganados[13] += 1
+        else:
+            ganados[juegoNumero] += 1
+    elif estatus_juego == 'Perdió':
+        if juegoNumero >= 13:
+            perdidos[13] += 1
+        else:
+            perdidos[juegoNumero] += 1
    
-#Muestra el mensaje "Ganó" o "Perdio :|"
-if estatus_juego == 'Ganó':
-    print('Ganó el jugador')
-else:
-    print('Perdio el jugador :(')
+
+# Probabilidad de ganar general
+total_victorias = sum(ganados)
+prob_ganar = total_victorias / lanzar
+
+# Obtener probabilidades de ganar en una lista
+probabilidades_ganar = [ganados[v] / total_victorias for v in range(len(ganados))]
+probabilidades_ganar_redondeadas = [round(prob, 4) for prob in probabilidades_ganar]
+
+# MEDIA
+total_juegos = sum(duracion_juegos.values())
+media = sum(duracion * duracion_juegos[duracion] for duracion in duracion_juegos) / total_juegos
+
+# MEDIANA
+# TO BE ADDED
+# MODA
+moda = max(duracion_juegos, key=duracion_juegos.get)
+
+print(f'Victorias: {ganados}')
+print(f'Derrotas: {perdidos}')
+print(f'La probabilidad de ganar es: {prob_ganar}')
+print(f'La media de duración de los juegos: {media:.4f}')
+print(f'Moda de duración de los juegos: {moda} veces')
+print(f'Las probabilidades de ganar es: {probabilidades_ganar_redondeadas}')
+
+y = np.arange(14)
+x1 = ganados
+x2 = perdidos
+
+plt.barh(y, x1, color='b', label='Victorias')
+plt.barh(y, x2, color='r', label='Derrotas', left=x1)
+plt.ylabel('Jugadas')
+plt.xlabel('Cantidad de veces')
+plt.title('Victorias y Derrotas')
+plt.legend()
+plt.show()
