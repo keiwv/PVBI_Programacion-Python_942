@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 import sys
+import statistics as st
 
 def lanzar_dado():
     """Lanza dos dados y regresa los valores de sus caras como una tupla."""
@@ -21,7 +22,12 @@ perdidos = [0] * 14
 # Diccionario para registrar la duración de los juegos ganados
 duracion_juegos = {}
 
-lanzar = int(sys.argv[1])
+# Verificar si tiene argumentos al momento de ejceutar el programa
+if len(sys.argv) < 2:
+    lanzar = int(input("Ingrese el número de juegos a simular: "))
+else:
+    lanzar = int(sys.argv[1])
+
 
 for _ in range(lanzar):
     juegoNumero = 1
@@ -79,20 +85,26 @@ probabilidades_ganar_redondeadas = [round(prob, 4) for prob in probabilidades_ga
 
 # MEDIA
 total_juegos = sum(duracion_juegos.values())
-media = sum(duracion * duracion_juegos[duracion] for duracion in duracion_juegos) / total_juegos
+media = st.mean(duracion_juegos)
 
 # MEDIANA
-# TO BE ADDED
-# MODA
-moda = max(duracion_juegos, key=duracion_juegos.get)
+sorted_data = sorted(duracion_juegos)
+mediana = st.median(sorted_data)
 
+# MODA
+moda = st.mode(duracion_juegos)
+
+# Mostrar en la terminal los datos.
 print(f'Victorias: {ganados}')
 print(f'Derrotas: {perdidos}')
 print(f'La probabilidad de ganar es: {prob_ganar}')
 print(f'La media de duración de los juegos: {media:.4f}')
+print(f'La mediana de duración de los juegos: {mediana:.4f}')
 print(f'Moda de duración de los juegos: {moda} veces')
 print(f'Las probabilidades de ganar es: {probabilidades_ganar_redondeadas}')
 
+
+# Mostrar gráfica.
 y = np.arange(14)
 x1 = ganados
 x2 = perdidos
