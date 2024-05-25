@@ -1,3 +1,33 @@
+'''
+Crear un script de python para registrar
+información de estudiantes. Cada estudiante
+debe tener los siguiente datos:
+- Nombre Completo
+- Número de Identificación
+
+Debes diseñar un diccionario que almacene
+esta información para varios estudiantes.
+
+Crea un diccionario vacío para almacenar los estudiantes.
+  - Implementa un menú interactivo que
+    permita al usuario seleccionar las
+    opciones.
+
+- Agregar un Estudiante: Permite al usuario ingresar los datos de un
+  estudiante y agregarlos al diccionario.
+
+- Buscar un Estudiante por Número de Identificación: El usuario debe
+  ingresar un número de identificación y el programa debe mostrar los
+  datos del estudiante correspondiente.
+
+- Mostrar Todos los Estudiantes Registrados: Muestra todos los estudiantes
+  y sus datos almacenados en el diccionario.
+
+- Eliminar un Estudiante: Pide al usuario ingresar un número de
+  identificación y elimina al estudiante correspondiente del diccionario.
+
+'''
+
 import os
 
 class Student:
