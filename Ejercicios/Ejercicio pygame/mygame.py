@@ -1,10 +1,13 @@
 import pgzrun
+import os
 from pgzero.actor import Actor
 from pgzero.keyboard import keys
+
 
 WIDTH = 1920
 HEIGHT = 1080
 
+os.system("clear") 
 carro = Actor('corolla.png')
 carroGTR = Actor('gtr.png')  
 meta = Actor('meta.png')  
