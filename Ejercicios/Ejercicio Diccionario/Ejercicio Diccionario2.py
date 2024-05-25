@@ -1,3 +1,9 @@
+'''Contar y mostrar el número de palabras que se encuentran en una cadena.'''
+
+''' Normalización para el ejercicio 3.'''
+
+import os 
+
 def normalize(s):
     replacements = (
         ("á", "a"),
@@ -24,6 +30,7 @@ for word in words:
         diccionario[word] = 1
 
 i = 0
+os.system("clear")
 print("Conteo de palabras en la frase:")
 for palabra, conteo in diccionario.items():
     print(f"{palabra}: {conteo}")
