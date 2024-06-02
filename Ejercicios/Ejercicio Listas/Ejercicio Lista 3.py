@@ -44,6 +44,6 @@ for _ in range(100):
 
 listas_generadas.sort()
 
-with open('Ejercicios/Ejercicio 4.1/lista.txt', 'w') as archivo:
+with open('Ejercicios/Ejercicio Listas/lista.txt', 'w') as archivo:
     for lista in listas_generadas:
         archivo.write(' '.join(map(str, lista)) + '\n')

@@ -11,10 +11,10 @@ main_inventory = []
 listBought = []
 itemBought = []
 
-with open("Ejercicios/Ejercicio 4.2/inventario.txt", "r") as inventory_file:
+with open("Ejercicios/Ejercicio Inventario/inventario.txt", "r") as inventory_file:
     main_inventory = inventory_file.readlines()
 
-with open("Ejercicios/Ejercicio 4.2/Lista de compras.txt", "r") as list_file:
+with open("Ejercicios/Ejercicio Inventario/Lista de compras.txt", "r") as list_file:
     listBought = list_file.readlines()
 
 lowerListBought = [item.strip().lower() for item in listBought]

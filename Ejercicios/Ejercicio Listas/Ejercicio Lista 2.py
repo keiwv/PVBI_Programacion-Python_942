@@ -36,7 +36,7 @@ while len(listaFile) < 1000:
 
 listaFile.sort()
 
-with open('Ejercicios/Ejercicio 4.1/generateList1000.txt', 'w') as archivo:
+with open('Ejercicios/Ejercicio Listas/generateList1000.txt', 'w') as archivo:
     for lista in listaFile:
         for elemento in lista:
             archivo.write(str(elemento) + ' ')

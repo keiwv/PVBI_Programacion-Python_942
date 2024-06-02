@@ -15,7 +15,7 @@ import random
 
 listas = []
 
-with open('Ejercicios/Ejercicio 4.1/generateList1000.txt', 'r') as archivo:
+with open('Ejercicios/Ejercicio Listas/generateList1000.txt', 'r') as archivo:
     for linea in archivo:
         numbers = list(map(int, linea.strip().split()))
         listas.append(numbers)

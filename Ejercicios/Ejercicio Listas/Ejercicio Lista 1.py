@@ -27,7 +27,7 @@ def generarLista():
 
 listaFile = generarLista()
 
-with open('Ejercicios/Ejercicio 4.1/generateList.txt', 'w') as archivo:
+with open('Ejercicios/Ejercicio Listas/generateList.txt', 'w') as archivo:
     for elemento in listaFile:
         archivo.write(str(elemento) + ' ')
     archivo.write('\n')
